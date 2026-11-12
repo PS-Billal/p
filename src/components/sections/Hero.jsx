@@ -44,10 +44,12 @@ export default function Hero() {
               Explore my work <ArrowUpRight size={19} />
             </MagneticButton>
             <TiltButton
-              href="mailto:billalyasir5@gmail.com"
+              href="https://drive.google.com/file/d/11PFEE6RBkJYZx91dBCxJo5L2XtGQ7Occ/view"
+              target="_blank"
+              rel="noopener noreferrer"
               variant="secondary"
             >
-              Let’s connect <ArrowUpRight size={18} />
+              View resume <ArrowUpRight size={18} />
             </TiltButton>
           </div>
           <div className="hero-note">

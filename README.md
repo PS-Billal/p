@@ -54,7 +54,7 @@ Set `TEST_URL` to test a different server. Set `BROWSER_PATH` to use an existing
 
 - Portfolio facts come from the supplied brief. Edit `src/data/portfolio.js` to update projects, skills, and experience.
 - Project previews are code-generated conceptual illustrations, explicitly labeled as such.
-- A resume was not supplied. Download buttons are omitted rather than linked to a missing file. Add a verified resume under `public/resume/` before exposing a download action.
+- The hero's “View resume” button opens the user-supplied Google Drive resume in a new tab.
 - GitHub and LinkedIn profile URLs were not supplied and are omitted.
 - The contact form uses server-side Brevo delivery; direct email links remain available via `mailto:`.
 - Canonical URLs use `https://billalyasir.com` as requested. Connecting that custom domain requires its owner’s DNS configuration; the Sites preview does not change it.

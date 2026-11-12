@@ -87,7 +87,7 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-        <a className="nav-contact" href="mailto:billalyasir5@gmail.com">
+        <a className="nav-contact" href="/#contact-form">
           Let’s talk <ArrowUpRight size={15} />
         </a>
         <button

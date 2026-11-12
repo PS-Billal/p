@@ -103,7 +103,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="contact-form-panel">
+    <div id="contact-form" className="contact-form-panel" tabIndex={-1}>
       <div className="form-heading">
         <span className="eyebrow">START A CONVERSATION</span>
         <h3>What’s on your mind?</h3>

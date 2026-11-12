@@ -45,7 +45,7 @@ export default async function Project({ params }) {
             <span>PROJECT NOTES</span>
             <b>{p.company}</b>
             <p>Production software</p>
-            <a href="mailto:billalyasir5@gmail.com">
+            <a href="/#contact-form">
               Discuss this project <ArrowUpRight size={14} />
             </a>
           </aside>
@@ -92,7 +92,7 @@ export default async function Project({ params }) {
                 performance metrics are not included.
               </p>
             </section>
-            <TiltButton href="mailto:billalyasir5@gmail.com">
+            <TiltButton href="/#contact-form">
               Talk engineering <ArrowUpRight size={17} />
             </TiltButton>
           </div>

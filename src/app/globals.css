@@ -3729,6 +3729,7 @@ footer > span,
   min-width: 0;
 }
 .contact-form-panel {
+  scroll-margin-top: 16px;
   flex: 1.1;
   min-width: 0;
   width: 100%;
