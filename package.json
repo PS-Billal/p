@@ -7,7 +7,7 @@
     "dev:api": "node scripts/api.mjs",
     "build": "next build && node scripts/build-worker.mjs",
     "start": "node scripts/serve.mjs",
-    "test:api": "node --test tests/contact-api.test.mjs"
+    "test:api": "node --test tests/contact-api.test.mjs tests/environment.test.mjs"
   },
   "dependencies": {
     "next": "^16.0.0",

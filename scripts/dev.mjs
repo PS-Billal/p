@@ -2,8 +2,7 @@ import { spawn } from "node:child_process";
 import { handleContact } from "../server/contact.mjs";
 import { loadEnvironment, serve } from "./http-server.mjs";
 
-const env = loadEnvironment();
-const api = serve(handleContact, env, 8787);
+const api = serve(handleContact, loadEnvironment, 8787);
 const next = spawn(
   process.execPath,
   [
