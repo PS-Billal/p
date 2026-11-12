@@ -1,4 +1,5 @@
 const nextConfig = {
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   ...(process.env.NODE_ENV === "development" ? {} : { output: "export" }),
   trailingSlash: true,
   ...(process.env.NODE_ENV === "development"
