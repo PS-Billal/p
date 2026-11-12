@@ -1,5 +1,58 @@
 const { test, expect } = require("@playwright/test");
 
+test("hero panel and badges fit their scene without clipping or covering the data layer", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+
+  for (const width of [320, 375, 390, 430, 600, 768, 1024, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto("/");
+    await expect(page.locator(".engineering-scene")).toHaveCSS(
+      "overflow",
+      "visible",
+    );
+    await expect
+      .poll(async () =>
+        page.locator(".engineering-scene").evaluate((scene) => {
+          const bounds = scene.getBoundingClientRect();
+          return [
+            ...scene.querySelectorAll(
+              ".architecture, .floating-token, .deployment-badge",
+            ),
+          ].every((card) => {
+            const rect = card.getBoundingClientRect();
+            return (
+              rect.left >= bounds.left &&
+              rect.right <= bounds.right &&
+              rect.top >= bounds.top &&
+              rect.bottom <= bounds.bottom
+            );
+          });
+        }),
+      )
+      .toBe(true);
+
+    const spacing = await page.locator(".scene-stage").evaluate((stage) => {
+      const panel = stage
+        .querySelector(".architecture")
+        .getBoundingClientRect();
+      const javascript = stage
+        .querySelector(".token-js")
+        .getBoundingClientRect();
+      const deployment = stage
+        .querySelector(".deployment-badge")
+        .getBoundingClientRect();
+      return {
+        javascript: javascript.top - panel.bottom,
+        deployment: deployment.top - panel.bottom,
+      };
+    });
+    expect(spacing.javascript).toBeGreaterThan(0);
+    expect(spacing.deployment).toBeGreaterThan(0);
+  }
+});
+
 test("touch layouts keep cards centered with matching left and right gutters", async ({
   browser,
 }) => {

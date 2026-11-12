@@ -10,6 +10,7 @@ import {
   Radio,
 } from "lucide-react";
 import { TiltCard, MagneticButton, TiltButton } from "../ui/Interactive";
+import EngineeringScene from "../ui/EngineeringScene";
 export default function Hero() {
   return (
     <section id="home" className="hero" tabIndex={-1}>
@@ -57,10 +58,12 @@ export default function Hero() {
             <span>From the first commit to production.</span>
           </div>
         </div>
-        <div className="engineering-scene">
-          <div className="scene-grid" />
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
+        <EngineeringScene>
+          <div className="scene-decoration" aria-hidden="true">
+            <div className="scene-grid" />
+            <div className="orbit orbit-one" />
+            <div className="orbit orbit-two" />
+          </div>
           <span className="scene-caption">A FULL-STACK MINDSET</span>
           <TiltCard className="architecture" strength={5}>
             <div className="editor-bar">
@@ -129,7 +132,7 @@ export default function Hero() {
             <Radio size={16} />
           </div>
           <div className="scene-coordinate">CLIENT → API → AI → DATA</div>
-        </div>
+        </EngineeringScene>
       </div>
       <div className="hero-bottom">
         <a href="#highlights">

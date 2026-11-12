@@ -3379,3 +3379,147 @@ main > section,
     padding: 24px;
   }
 }
+/* The hero is one proportionally scaled composition. Only background lines clip. */
+.engineering-scene {
+  --scene-scale: 1;
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  aspect-ratio: 480 / 660;
+  margin-inline: auto;
+  overflow: visible;
+  scale: none;
+  perspective: none;
+}
+
+.scene-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 480px;
+  height: 660px;
+  zoom: var(--scene-scale);
+  perspective: 1200px;
+}
+
+.engineering-scene::before {
+  inset: 40px 0;
+}
+
+.scene-decoration {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+
+.scene-stage .scene-grid {
+  inset: 0;
+}
+.scene-stage .scene-caption {
+  top: 14px;
+  left: 26px;
+  font-size: 8px;
+}
+.scene-stage .scene-coordinate {
+  bottom: 1px;
+  left: 26px;
+  font-size: 8px;
+}
+.scene-stage .orbit {
+  inset: auto;
+  width: 450px;
+  height: 450px;
+}
+.scene-stage .orbit-two {
+  width: 500px;
+  height: 500px;
+  transform: rotateX(55deg) rotateZ(45deg);
+}
+
+.scene-stage .architecture {
+  position: absolute;
+  top: 64px;
+  left: 62px;
+  width: 355px;
+}
+
+.scene-stage .architecture,
+.scene-stage .architecture[data-hover="false"] {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-9deg) rotateZ(-3deg);
+}
+
+.scene-stage .architecture[data-hover="true"] {
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry))
+    translateY(-6px);
+}
+
+.scene-stage .editor-code {
+  font-size: 9px;
+  padding: 20px 17px 15px;
+}
+.scene-stage .architecture-layers {
+  padding: 0 17px 20px;
+  gap: 9px;
+}
+.scene-stage .architecture-layer {
+  min-height: 63px;
+  padding: 12px 13px;
+  gap: 12px;
+}
+.scene-stage .architecture-layer small {
+  font-size: 7px;
+}
+.scene-stage .architecture-layer b {
+  font-size: 11px;
+}
+.scene-stage .layer-icon {
+  width: 33px;
+  height: 33px;
+}
+.scene-stage .layer-icon svg {
+  width: 20px;
+}
+.scene-stage .editor-status {
+  font-size: 7px;
+  padding: 10px 15px;
+}
+.scene-stage .floating-token {
+  padding: 11px 17px;
+  font-size: 11px;
+}
+.scene-stage .token-react {
+  top: 108px;
+  right: 18px;
+}
+.scene-stage .token-react > span {
+  font-size: 27px;
+}
+.scene-stage .token-js {
+  bottom: 24px;
+  left: 18px;
+}
+.scene-stage .deployment-badge {
+  bottom: 24px;
+  right: 20px;
+  padding: 12px 16px;
+  gap: 11px;
+  font-size: 11px;
+}
+.scene-stage .deployment-badge small {
+  font-size: 8px;
+}
+.scene-stage .deployment-badge > svg {
+  margin-left: 18px;
+  width: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-stage .architecture,
+  .scene-stage .architecture[data-hover="false"] {
+    transform: perspective(1000px) rotateY(-8deg) rotateZ(-3deg) !important;
+  }
+}
