@@ -1,14 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-const sections = [
-  "Home",
-  "Projects",
-  "Skills",
-  "Experience",
-  "About",
-  "Contact",
-];
+const sections = ["Home", "Projects", "Skills", "Experience", "About"];
 export default function Navbar() {
   const [open, setOpen] = useState(false),
     [active, setActive] = useState("home"),

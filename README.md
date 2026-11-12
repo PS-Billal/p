@@ -65,3 +65,4 @@ Set `TEST_URL` to test a different server. Set `BROWSER_PATH` to use an existing
 `TiltCard` writes pointer coordinates to CSS custom properties inside one scheduled animation frame, without pointer-driven React renders. `TiltButton`, `MagneticButton`, `SpotlightCard`, and `FloatingTechCard` share that behavior. Project, skill, and experience cards use different rotation strengths. Pointer effects are disabled for touch and reduced motion. All content remains usable without animations or JavaScript.
 
 No resume, external profile, performance metric, or live project destination has been invented.
+# p
