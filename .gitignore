@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+test-results/
+playwright-report/
+*.tar.gz
+desktop.png
+mobile.png
+mobile-skills.png
