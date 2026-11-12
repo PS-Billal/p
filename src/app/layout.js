@@ -15,16 +15,16 @@ const headingFont = Manrope({
 export const metadata = {
   metadataBase: new URL("https://billalyasir.com"),
   title: {
-    default: "Md Billal Yasir | Full-Stack Software Developer",
+    default: "Md Billal Yasir | Software Developer",
     template: "%s | Md Billal Yasir",
   },
   description:
-    "Full-Stack Software Developer based in Cyprus, specializing in production SaaS, React, Next.js, Node.js, AI integrations, RAG, and real-time applications.",
+    "Software Developer based in Cyprus, specializing in production SaaS, React, Next.js, Node.js, AI integrations, RAG, and real-time applications.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "https://billalyasir.com",
-    title: "Md Billal Yasir | Full-Stack Software Developer",
+    title: "Md Billal Yasir | Software Developer",
     description:
       "Thoughtful code. Real-world products. Production SaaS, AI, and real-time systems.",
     images: [{ url: "/social-preview.png", width: 1200, height: 630 }],
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Md Billal Yasir",
-              jobTitle: "Full-Stack Software Developer",
+              jobTitle: "Software Developer",
               url: "https://billalyasir.com",
               email: "billalyasir5@gmail.com",
               address: {

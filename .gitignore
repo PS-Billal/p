@@ -7,3 +7,7 @@ playwright-report/
 desktop.png
 mobile.png
 mobile-skills.png
+dist/
+.env
+.env.*
+!.env.example

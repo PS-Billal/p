@@ -18,6 +18,7 @@ import {
 import { skills, projects, experience, tech } from "../../data/portfolio";
 import { TiltCard, FloatingTechCard, MagneticButton } from "../ui/Interactive";
 import ProjectCard from "../ui/ProjectCard";
+import ContactForm from "./ContactForm";
 const icons = {
   frontend: Braces,
   backend: Database,
@@ -332,12 +333,7 @@ export function Contact() {
             Let’s connect <ArrowUpRight size={21} />
           </MagneticButton>
         </div>
-        <div className="contact-orb" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <ArrowUpRight size={76} strokeWidth={1} />
-        </div>
+        <ContactForm />
       </div>
       <div className="contact-details">
         <a href="mailto:billalyasir5@gmail.com">
