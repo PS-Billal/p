@@ -1,5 +1,67 @@
 const { test, expect } = require("@playwright/test");
 
+test("touch layouts keep cards centered with matching left and right gutters", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    isMobile: true,
+    hasTouch: true,
+    reducedMotion: "reduce",
+  });
+  const page = await context.newPage();
+
+  for (const width of [320, 375, 390, 430, 540, 600, 700, 768]) {
+    await page.setViewportSize({ width, height: 667 });
+    await page.goto("/");
+    const measurements = await page.evaluate(() => {
+      const viewport = document.documentElement.clientWidth;
+      const selectors = [
+        ".projects-grid",
+        ".skills-grid",
+        ".principle-grid",
+        ".education-card",
+        ".contact-section",
+      ];
+      if (innerWidth <= 700)
+        selectors.push(".project-card", ".experience-card");
+      if (innerWidth <= 540) selectors.push(".skill-card");
+      return selectors.flatMap((selector) =>
+        [...document.querySelectorAll(selector)].map((node) => {
+          const rect = node.getBoundingClientRect();
+          return { selector, left: rect.left, right: viewport - rect.right };
+        }),
+      );
+    });
+
+    for (const { selector, left, right } of measurements) {
+      expect(Math.abs(left - right), `${selector} at ${width}px`).toBeLessThan(
+        1,
+      );
+      expect(
+        left,
+        `${selector} left gutter at ${width}px`,
+      ).toBeGreaterThanOrEqual(15);
+    }
+
+    const lastRow = await page.locator(".tech-stack").evaluate((stack) => {
+      const tiles = [...stack.children].map((tile) =>
+        tile.getBoundingClientRect(),
+      );
+      const row = tiles.filter(
+        (tile) => Math.abs(tile.top - tiles.at(-1).top) < 1,
+      );
+      const bounds = stack.getBoundingClientRect();
+      return {
+        left: row[0].left - bounds.left,
+        right: bounds.right - row.at(-1).right,
+      };
+    });
+    expect(Math.abs(lastRow.left - lastRow.right)).toBeLessThan(1);
+  }
+
+  await context.close();
+});
+
 for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
   test(`all sections fit at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

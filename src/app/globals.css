@@ -8,6 +8,7 @@
   --border: #29322b;
   --font-body: var(--font-dm), sans-serif;
   --font-heading: var(--font-manrope), sans-serif;
+  --page-gutter: 58px;
   color-scheme: dark;
 }
 * {
@@ -76,14 +77,16 @@ section:focus {
 main,
 footer,
 .nav-shell {
+  width: 100%;
   max-width: 1280px;
-  margin: auto;
+  margin-inline: auto;
+  min-width: 0;
 }
 main {
-  padding: 0 58px;
+  padding-inline: var(--page-gutter);
 }
 footer {
-  padding: 35px 58px;
+  padding: 35px var(--page-gutter);
 }
 .skip-link {
   position: fixed;
@@ -115,7 +118,7 @@ footer {
 }
 .nav-shell {
   height: 100%;
-  padding: 0 58px;
+  padding: 0 var(--page-gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -795,10 +798,12 @@ footer {
 }
 .projects-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
 }
 .project-card {
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(140deg, #19201a, #121814);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -807,6 +812,7 @@ footer {
 }
 .project-image-link {
   display: block;
+  flex-shrink: 0;
   transform: translateZ(13px);
 }
 .project-preview {
@@ -3186,4 +3192,190 @@ footer > span {
 }
 .tilt[data-hover="true"] {
   will-change: transform;
+}
+/* Keep every section on the same centered, shrink-safe content track. */
+main > section,
+.projects-grid,
+.skills-grid,
+.principle-grid,
+.timeline,
+.project-content {
+  min-width: 0;
+  width: 100%;
+}
+
+.project-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.project-content > .tags {
+  margin-bottom: 24px;
+}
+
+.project-content > .case-link {
+  margin-top: auto;
+  min-height: 44px;
+}
+
+.project-content h3 a {
+  align-items: flex-start;
+  overflow-wrap: anywhere;
+}
+
+.skills-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.principle-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Center the incomplete last row instead of leaving empty cells on its right. */
+.tech-stack {
+  --tech-columns: 11;
+  --tech-gap: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tech-gap);
+}
+
+.tech-tile {
+  flex: 0 0
+    calc(
+      (100% - (var(--tech-columns) - 1) * var(--tech-gap)) / var(--tech-columns)
+    );
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --page-gutter: 35px;
+  }
+
+  .tech-stack {
+    --tech-columns: 6;
+  }
+}
+
+@media (max-width: 800px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --page-gutter: clamp(16px, 4.8vw, 28px);
+  }
+
+  main,
+  .nav-shell {
+    padding-inline: var(--page-gutter);
+  }
+
+  footer {
+    padding-inline: var(--page-gutter);
+  }
+
+  .projects-grid,
+  .principle-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading > p {
+    max-width: 440px;
+    margin-top: 20px;
+  }
+
+  .project-card,
+  .skill-card,
+  .principle-card,
+  .experience-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .project-content > p {
+    min-height: 0;
+  }
+
+  .project-preview {
+    height: clamp(250px, 48vw, 300px);
+    aspect-ratio: auto;
+  }
+
+  .project-content h3 {
+    font-size: clamp(21px, 4vw, 26px);
+  }
+
+  .timeline-entry {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 0;
+    margin-left: 0;
+    border-left: 0;
+  }
+
+  .timeline-date {
+    position: relative;
+    padding-left: 20px;
+    flex-wrap: wrap;
+  }
+
+  .timeline-node {
+    left: 0;
+    top: 11px;
+  }
+
+  .education-card {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .education-card > div:nth-child(2) {
+    min-width: 0;
+  }
+
+  .education-result {
+    grid-column: 2;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .contact-main {
+    min-width: 0;
+  }
+
+  .contact-details > a,
+  .contact-details > span {
+    min-height: 32px;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 540px) {
+  .skills-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tech-stack {
+    --tech-columns: 4;
+    --tech-gap: 10px;
+  }
+
+  .project-content {
+    padding-inline: 10px;
+  }
+
+  .experience-card {
+    padding: 24px;
+  }
 }
