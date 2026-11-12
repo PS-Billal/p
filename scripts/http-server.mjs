@@ -8,8 +8,8 @@ export function serve(handler, env, port) {
       for await (const chunk of incoming) {
         size += chunk.length;
         if (size > 16_000) {
-          outgoing.writeHead(413);
-          outgoing.end("Request too large");
+          outgoing.writeHead(413, { "Content-Type": "application/json" });
+          outgoing.end(JSON.stringify({ error: "Your message is too long." }));
           return;
         }
         data.push(chunk);
@@ -26,12 +26,17 @@ export function serve(handler, env, port) {
       );
       const response =
         (await handler(request, env)) ||
-        new Response("Not found", { status: 404 });
+        Response.json({ error: "Not found." }, { status: 404 });
       outgoing.writeHead(response.status, Object.fromEntries(response.headers));
       outgoing.end(Buffer.from(await response.arrayBuffer()));
     } catch {
-      outgoing.writeHead(500);
-      outgoing.end("Server error");
+      outgoing.writeHead(500, { "Content-Type": "application/json" });
+      outgoing.end(
+        JSON.stringify({
+          error:
+            "The contact service is temporarily unavailable. Please try again.",
+        }),
+      );
     }
   }).listen(port, "127.0.0.1", () =>
     console.log(`Local: http://127.0.0.1:${port}`),

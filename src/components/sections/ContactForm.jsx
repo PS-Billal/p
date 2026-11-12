@@ -8,6 +8,24 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+const challengeError =
+  "Couldn’t load the human check. Please try again or email billalyasir5@gmail.com.";
+const sendError =
+  "Your message couldn’t be sent. Your text is still here. Please try again or email billalyasir5@gmail.com.";
+
+async function readApiResponse(response, fallback) {
+  let data;
+  try {
+    data = JSON.parse(await response.text());
+  } catch {
+    throw new Error(fallback);
+  }
+  if (!data || typeof data !== "object") throw new Error(fallback);
+  if (!response.ok)
+    throw new Error(typeof data.error === "string" ? data.error : fallback);
+  return data;
+}
+
 export default function ContactForm() {
   const [challenge, setChallenge] = useState(null);
   const [status, setStatus] = useState("loading");
@@ -20,21 +38,24 @@ export default function ContactForm() {
     setAnswer("");
     try {
       const response = await fetch("/api/contact/challenge", {
-        signal,
+        signal: signal
+          ? AbortSignal.any([signal, AbortSignal.timeout(12_000)])
+          : AbortSignal.timeout(12_000),
         cache: "no-store",
       });
-      const data = await response.json();
-      if (!response.ok || !data.token)
-        throw new Error(
-          data.error ||
-            "The form is temporarily unavailable. Please email me directly.",
-        );
+      const data = await readApiResponse(response, challengeError);
+      if (typeof data.token !== "string" || typeof data.question !== "string")
+        throw new Error(challengeError);
       setChallenge(data);
       setStatus("ready");
     } catch (error) {
       if (error.name !== "AbortError") {
         setStatus("unavailable");
-        setNotice(error.message);
+        setNotice(
+          error instanceof TypeError || error.name === "TimeoutError"
+            ? challengeError
+            : error.message,
+        );
       }
     }
   }
@@ -60,11 +81,8 @@ export default function ContactForm() {
         body: JSON.stringify({ ...data, answer, token: challenge.token }),
         signal: AbortSignal.timeout(15_000),
       });
-      const result = await response.json();
-      if (!response.ok)
-        throw new Error(
-          result.error || "Your message couldn’t be sent. Please try again.",
-        );
+      const result = await readApiResponse(response, sendError);
+      if (typeof result.message !== "string") throw new Error(sendError);
       setStatus("sent");
       setNotice(result.message);
       form.reset();
@@ -74,7 +92,9 @@ export default function ContactForm() {
       setNotice(
         error.name === "TimeoutError"
           ? "The request timed out. Your text is still here; please try again."
-          : error.message,
+          : error instanceof TypeError
+            ? sendError
+            : error.message,
       );
       await refresh();
     } finally {

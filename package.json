@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
+    "dev:api": "node scripts/api.mjs",
     "build": "next build && node scripts/build-worker.mjs",
     "start": "node scripts/serve.mjs",
     "test:api": "node --test tests/contact-api.test.mjs"

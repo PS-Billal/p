@@ -16,7 +16,7 @@ import {
   Mail,
 } from "lucide-react";
 import { skills, projects, experience, tech } from "../../data/portfolio";
-import { TiltCard, FloatingTechCard, MagneticButton } from "../ui/Interactive";
+import { TiltCard, FloatingTechCard } from "../ui/Interactive";
 import ProjectCard from "../ui/ProjectCard";
 import ContactForm from "./ContactForm";
 const icons = {
@@ -329,9 +329,6 @@ export function Contact() {
             engineering challenges, and contributing to teams creating
             meaningful impact.
           </p>
-          <MagneticButton href="mailto:billalyasir5@gmail.com">
-            Let’s connect <ArrowUpRight size={21} />
-          </MagneticButton>
         </div>
         <ContactForm />
       </div>

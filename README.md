@@ -30,7 +30,7 @@ BREVO_SENDER_NAME=Billal Yasir
 CONTACT_EMAIL=billalyasir5@gmail.com
 ```
 
-The sender must be verified in Brevo. Restart `npm run dev` or `npm start` after changing the environment. Local development starts Next.js and a small contact API on port 8787; the form always calls same-origin `/api/contact` endpoints. Node.js 22 or later is required.
+The sender must be verified in Brevo. Restart `npm run dev` or `npm start` after changing the environment. Use `npm run dev` to start both Next.js and the contact API on port 8787. If an IDE launches `next dev` directly, also run `npm run dev:api`; otherwise the contact proxy cannot reach its backend. The form always calls same-origin `/api/contact` endpoints. Node.js 22 or later is required.
 
 For the hosted Site, set these same values as Sites runtime environment variables and mark `BREVO_API_KEY` secret, then deploy. Local `.env` files are ignored by Git and are never bundled or uploaded. The hosted form stays unavailable until its runtime credentials are configured; a local `.env` does not configure the hosted Site.
 
